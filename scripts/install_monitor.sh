@@ -43,14 +43,15 @@ install_service() {
     # Copy plist file
     cp "$PLIST_SOURCE" "$PLIST_DEST"
 
-    # Update paths in plist to use actual user home
-    sed -i '' "s|/Users/ganathan|$HOME|g" "$PLIST_DEST"
-
     # Find node path
     NODE_PATH=$(which node)
-    if [ -n "$NODE_PATH" ]; then
-        sed -i '' "s|/opt/homebrew/bin/node|$NODE_PATH|g" "$PLIST_DEST"
+    if [ -z "$NODE_PATH" ]; then
+        NODE_PATH="/opt/homebrew/bin/node"
     fi
+
+    # Replace placeholders in plist with actual paths
+    sed -i '' "s|__SKYE_DIR__|$SKYE_DIR|g" "$PLIST_DEST"
+    sed -i '' "s|__NODE_PATH__|$NODE_PATH|g" "$PLIST_DEST"
 
     # Load the service
     launchctl load "$PLIST_DEST"

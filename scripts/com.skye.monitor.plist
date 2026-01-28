@@ -7,12 +7,12 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/bin/node</string>
-        <string>/Users/ganathan/Workspace/SkyeJS/scripts/keep_alive.js</string>
+        <string>__NODE_PATH__</string>
+        <string>__SKYE_DIR__/scripts/keep_alive.js</string>
     </array>
 
     <key>WorkingDirectory</key>
-    <string>/Users/ganathan/Workspace/SkyeJS</string>
+    <string>__SKYE_DIR__</string>
 
     <key>RunAtLoad</key>
     <true/>
@@ -21,10 +21,10 @@
     <true/>
 
     <key>StandardOutPath</key>
-    <string>/Users/ganathan/Workspace/SkyeJS/skye-monitor.log</string>
+    <string>__SKYE_DIR__/skye-monitor.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/ganathan/Workspace/SkyeJS/skye-monitor.log</string>
+    <string>__SKYE_DIR__/skye-monitor.log</string>
 
     <key>EnvironmentVariables</key>
     <dict>
