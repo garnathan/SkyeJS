@@ -1,0 +1,39 @@
+{
+  "work": [
+    {
+      "id": "example-work-1",
+      "text": "Complete project documentation",
+      "notes": "",
+      "completed": false,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z",
+      "order": 0,
+      "priority": true,
+      "list": "work"
+    },
+    {
+      "id": "example-work-2",
+      "text": "Review pull requests",
+      "notes": "",
+      "completed": false,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z",
+      "order": 1,
+      "priority": false,
+      "list": "work"
+    }
+  ],
+  "personal": [
+    {
+      "id": "example-personal-1",
+      "text": "Buy groceries",
+      "notes": "",
+      "completed": false,
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:00:00.000Z",
+      "order": 0,
+      "priority": false,
+      "list": "personal"
+    }
+  ]
+}
