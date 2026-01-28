@@ -1,6 +1,6 @@
 # SkyeJS
 
-A modern personal dashboard built with React and Node.js. This is a complete rewrite of the original [Skye](https://github.com/ganathan/Skye) Python/Flask application, rebuilt from the ground up using modern JavaScript technologies for improved performance, real-time updates, and a better developer experience.
+A modern personal dashboard built with React and Node.js. This is a complete rewrite of the original [Skye](https://github.com/garnathan/Skye) Python/Flask application, rebuilt from the ground up using modern JavaScript technologies for improved performance, real-time updates, and a better developer experience.
 
 ![SkyeJS Home Dashboard](images/home.png)
 
@@ -118,7 +118,7 @@ The original Skye was built with Python and Flask - great for rapid prototyping 
 ### Quick Start
 
 ```bash
-git clone https://github.com/ganathan/SkyeJS.git
+git clone https://github.com/garnathan/SkyeJS.git
 cd SkyeJS
 cp .env.example .env
 npm run dev
