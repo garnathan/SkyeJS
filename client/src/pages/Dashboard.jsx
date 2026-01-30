@@ -71,16 +71,6 @@ function Dashboard() {
     staleTime: 2 * 60 * 1000,
   });
 
-  // Fetch cash assets value
-  const { data: cashAssets, isLoading: cashLoading } = useQuery({
-    queryKey: ['cashAssets', period],
-    queryFn: async () => {
-      const response = await dashboardApi.getCashAssetsValue(period);
-      return response.data;
-    },
-    staleTime: 5 * 60 * 1000,
-  });
-
   // Fetch XRP data
   const { data: xrpData, isLoading: xrpLoading } = useQuery({
     queryKey: ['xrpData', period],
@@ -234,28 +224,12 @@ function Dashboard() {
       </div>
 
       {/* Portfolio Holdings Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <PortfolioSummary
           portfolio={portfolio}
           isLoading={portfolioLoading}
           title="AMZN Portfolio Value"
         />
-        <div className="card p-4">
-          <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
-            Cash Assets
-          </h3>
-          <p className="text-2xl font-bold text-slate-900 dark:text-white">
-            €{cashAssets?.currentValue?.toLocaleString() || '—'}
-          </p>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            {cashAssets?.eurAmount?.toLocaleString()} EUR base
-          </p>
-          {cashAssets?.change !== undefined && (
-            <p className={`text-sm mt-1 ${cashAssets.change >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-              {cashAssets.change >= 0 ? '+' : ''}€{cashAssets.change?.toLocaleString()} ({cashAssets.changePercent >= 0 ? '+' : ''}{cashAssets.changePercent}%)
-            </p>
-          )}
-        </div>
         <div className="card p-4">
           <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">
             XRP Holdings
@@ -302,14 +276,6 @@ function Dashboard() {
           data={currencyData?.data}
           color="#8b5cf6"
           isLoading={currencyLoading}
-        />
-        <StockChart
-          title="Cash Assets (EUR)"
-          data={cashAssets?.data}
-          dataKey="value"
-          color="#f59e0b"
-          isLoading={cashLoading}
-          currency="€"
         />
         <StockChart
           title="Oracle (ORCL)"
