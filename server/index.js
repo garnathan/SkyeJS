@@ -23,6 +23,7 @@ import toolsRoutes from './routes/tools.js';
 import settingsRoutes from './routes/settings.js';
 import networkRoutes from './routes/network.js';
 import homeRoutes from './routes/home.js';
+import platformHealthRoutes from './routes/platformHealth.js';
 import dashboardRoutes from './routes/dashboard/index.js';
 
 dotenv.config({ path: join(dirname(fileURLToPath(import.meta.url)), '..', '.env') });
@@ -88,6 +89,7 @@ app.use('/api/tools', toolsRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/network', networkRoutes);
 app.use('/api/home', homeRoutes);
+app.use('/api/platform-health', platformHealthRoutes);
 app.use('/api', dashboardRoutes);
 
 // OAuth callback routes (outside /api prefix for cleaner URLs)

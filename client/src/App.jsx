@@ -13,9 +13,11 @@ import Logs from './pages/Logs';
 import Settings from './pages/Settings';
 import Network from './pages/Network';
 import HomeAutomation from './pages/HomeAutomation';
+import PlatformHealth from './pages/PlatformHealth';
 import useThemeStore from './store/themeStore';
 import { useNetworkMonitor } from './hooks/useNetworkMonitor';
 import { useTodoReminders } from './hooks/useTodoReminders';
+import { usePlatformHealthMonitor } from './hooks/usePlatformHealthMonitor';
 
 function App() {
   const { isDark } = useThemeStore();
@@ -27,6 +29,10 @@ function App() {
   // Start global to-do reminder notifications
   // Checks for items due today and shows browser notifications
   useTodoReminders();
+
+  // Start global platform health monitoring for dependency outage alerts
+  // Monitors Claude, OCI, and other platform statuses
+  usePlatformHealthMonitor();
 
   useEffect(() => {
     if (isDark) {
@@ -50,6 +56,7 @@ function App() {
         <Route path="/youtube" element={<YouTube />} />
         <Route path="/logs" element={<Logs />} />
         <Route path="/network" element={<Network />} />
+        <Route path="/platform-health" element={<PlatformHealth />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </Layout>

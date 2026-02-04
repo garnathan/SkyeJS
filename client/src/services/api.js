@@ -130,6 +130,13 @@ export const networkApi = {
   getHistorySummary: () => api.get('/network/history'),
 };
 
+// Platform Health API
+export const platformHealthApi = {
+  getStatus: () => api.get('/platform-health/status', { timeout: 15000 }),
+  getPlatformStatus: (platform) => api.get(`/platform-health/status/${platform}`, { timeout: 15000 }),
+  getPlatforms: () => api.get('/platform-health/platforms'),
+};
+
 // Home Automation API
 export const homeApi = {
   getDevices: () => api.get('/home/devices'),

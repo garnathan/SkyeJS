@@ -12,6 +12,7 @@ import {
   DocumentTextIcon,
   XMarkIcon,
   SignalIcon,
+  ServerStackIcon,
 } from '@heroicons/react/24/outline';
 
 const navigation = [
@@ -25,6 +26,7 @@ const navigation = [
   { name: 'Tools', href: '/tools', icon: WrenchIcon },
   { name: 'YouTube', href: '/youtube', icon: PlayIcon },
   { name: 'Network', href: '/network', icon: SignalIcon },
+  { name: 'Platform Health', href: '/platform-health', icon: ServerStackIcon },
   { name: 'Logs', href: '/logs', icon: DocumentTextIcon },
 ];
 
