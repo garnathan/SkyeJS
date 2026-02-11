@@ -325,46 +325,108 @@ router.get('/artist-image', asyncHandler(async (req, res) => {
     return res.status(400).json({ error: 'Artist name required' });
   }
 
-  try {
-    const encodedArtist = encodeURIComponent(artist);
-    const wikiSearchUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&piprop=original&titles=${encodedArtist}`;
+  // Helper to extract image URL from Wikipedia page data
+  const extractImageUrl = (pages) => {
+    for (const page of Object.values(pages)) {
+      // Prefer original, fall back to thumbnail
+      if (page.original?.source) {
+        return page.original.source;
+      }
+      if (page.thumbnail?.source) {
+        // Request larger thumbnail by modifying the URL
+        return page.thumbnail.source.replace(/\/\d+px-/, '/500px-');
+      }
+    }
+    return null;
+  };
 
-    const response = await axios.get(wikiSearchUrl, {
-      headers: { 'User-Agent': 'SkyeJS/1.0' },
+  // Helper to fetch image for a given Wikipedia title
+  const fetchImageForTitle = async (title) => {
+    const encodedTitle = encodeURIComponent(title);
+    const imageUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&piprop=original|thumbnail&pithumbsize=500&titles=${encodedTitle}`;
+
+    const imgResponse = await axios.get(imageUrl, {
+      headers: { 'User-Agent': 'SkyeJS/1.0 (music discovery app)' },
       timeout: 5000
     });
 
-    const pages = response.data?.query?.pages || {};
-    for (const page of Object.values(pages)) {
-      if (page.original) {
-        return res.json({ image_url: page.original.source });
+    const imgPages = imgResponse.data?.query?.pages || {};
+    return extractImageUrl(imgPages);
+  };
+
+  try {
+    const encodedArtist = encodeURIComponent(artist);
+
+    // Strategy 1: Try explicit music-related page titles first
+    // Many artists have disambiguation, e.g., "Muse (band)" instead of "Muse"
+    const musicSuffixes = ['(band)', '(musician)', '(singer)', '(rapper)', '(group)'];
+    for (const suffix of musicSuffixes) {
+      const explicitTitle = `${artist} ${suffix}`;
+      const imageUrl = await fetchImageForTitle(explicitTitle);
+      if (imageUrl) {
+        return res.json({ image_url: imageUrl });
       }
     }
 
-    // If Wikipedia didn't work, try searching for the artist page first
-    const searchUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${encodedArtist}&limit=1`;
+    // Strategy 2: Search Wikipedia and prioritize music-related results
+    const searchUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${encodedArtist}&limit=10`;
     const searchResponse = await axios.get(searchUrl, {
-      headers: { 'User-Agent': 'SkyeJS/1.0' },
+      headers: { 'User-Agent': 'SkyeJS/1.0 (music discovery app)' },
       timeout: 5000
     });
 
     const searchData = searchResponse.data;
-    if (searchData.length > 1 && searchData[1].length > 0) {
-      const pageTitle = searchData[1][0];
-      const encodedTitle = encodeURIComponent(pageTitle);
-      const imageUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&piprop=original&titles=${encodedTitle}`;
+    const titles = searchData[1] || [];
+    const descriptions = searchData[2] || [];
 
-      const imgResponse = await axios.get(imageUrl, {
-        headers: { 'User-Agent': 'SkyeJS/1.0' },
-        timeout: 5000
+    if (titles.length > 0) {
+      const musicKeywords = ['band', 'musician', 'singer', 'artist', 'group', 'rapper', 'duo', 'rock', 'pop', 'music'];
+
+      // Score each result: lower score = better match
+      const scoredResults = titles.map((title, i) => {
+        const desc = (descriptions[i] || '').toLowerCase();
+        const titleLower = title.toLowerCase();
+        let score = 100;
+
+        // Strong preference for titles with music suffixes
+        if (titleLower.includes('(band)') || titleLower.includes('(musician)') ||
+            titleLower.includes('(singer)') || titleLower.includes('(rapper)')) {
+          score = 0;
+        }
+        // Preference for descriptions with music keywords
+        else if (musicKeywords.some(k => desc.includes(k))) {
+          score = 10;
+        }
+        // Exact title match (could be disambiguation page)
+        else if (titleLower === artist.toLowerCase()) {
+          score = 50;
+        }
+        // Skip obviously wrong results
+        else if (titleLower.includes('(album)') || titleLower.includes('(song)') ||
+                 titleLower.includes('(film)') || titleLower.includes('(tv series)')) {
+          score = 200;
+        }
+
+        return { title, score, index: i };
       });
 
-      const imgPages = imgResponse.data?.query?.pages || {};
-      for (const page of Object.values(imgPages)) {
-        if (page.original) {
-          return res.json({ image_url: page.original.source });
+      // Sort by score
+      scoredResults.sort((a, b) => a.score - b.score);
+
+      // Try each result in order
+      for (const result of scoredResults) {
+        if (result.score >= 200) continue; // Skip bad matches
+        const imageUrl = await fetchImageForTitle(result.title);
+        if (imageUrl) {
+          return res.json({ image_url: imageUrl });
         }
       }
+    }
+
+    // Strategy 3: Final fallback - try exact title match
+    const directImageUrl = await fetchImageForTitle(artist);
+    if (directImageUrl) {
+      return res.json({ image_url: directImageUrl });
     }
 
     return res.json({ image_url: null });
