@@ -25,11 +25,6 @@ The original Skye was built with Python and Flask - great for rapid prototyping 
 - **Portfolio Value** - Calculated portfolio value with period comparisons
 - **Sell Recommendations** - AI-powered sell signal analysis
 
-### AI Chat
-- **Claude Integration** - Chat with Anthropic's Claude AI with model selection
-- **Context Support** - Add custom contexts to enhance AI responses
-- **Conversation History** - Persistent chat history stored locally
-
 ### Weather
 
 ![Weather Dashboard](images/weather.png)
@@ -130,13 +125,7 @@ The app will be available at http://localhost:5055
 
 ### Configuration
 
-Most features work out of the box. To enable AI chat, add your Anthropic API key to `.env`:
-
-```env
-ANTHROPIC_API_KEY=your_claude_api_key
-```
-
-All other settings (weather location, smart home, portfolio) can be configured in the **Settings** page within the app, or by editing `.env` directly. See [Environment Variables](#environment-variables) for the full list.
+Most features work out of the box. All settings (weather location, smart home, portfolio) can be configured in the **Settings** page within the app, or by editing `.env` directly. See [Environment Variables](#environment-variables) for the full list.
 
 ### Using the Start Script
 
@@ -205,11 +194,6 @@ SkyeJS/
 - `GET /api/gold-price` - Current gold price
 - `GET /api/portfolio-value` - Portfolio value calculation
 - `GET /api/sell-recommendation` - Get sell signals
-
-### AI Chat
-- `GET /api/claude/models` - Available Claude models
-- `GET /api/claude/contexts` - Available context files
-- `POST /api/claude/chat` - Send message to Claude
 
 ### Weather
 - `GET /api/weather` - Aggregated weather forecast
@@ -286,7 +270,6 @@ npm run lint          # Run ESLint on all workspaces
 |----------|-------------|----------|
 | `PORT` | Server port (default: 3001) | No |
 | `NODE_ENV` | Environment (development/production) | No |
-| `ANTHROPIC_API_KEY` | Anthropic API key for Claude | Yes* |
 | `OPENWEATHERMAP_API_KEY` | OpenWeatherMap One Call API 3.0 key | No |
 | `YOUTUBE_API_KEY` | YouTube Data API key | No |
 | `YOUTUBE_CLIENT_ID` | YouTube OAuth client ID | No |
@@ -301,7 +284,6 @@ npm run lint          # Run ESLint on all workspaces
 | `WEATHER_DEFAULT_NAME` | Default weather location name | No |
 | `USER_NAME` | Your name for personalized greetings | No |
 
-*Required for AI chat feature
 
 ## Weather Data Aggregation
 
@@ -337,7 +319,7 @@ Govee devices are automatically discovered on your local network via UDP multica
 | Styling | Custom CSS | Tailwind CSS |
 | Build Tool | None | Vite |
 | PWA Support | No | Yes |
-| AI Integration | Gemini | Claude |
+| AI Integration | Gemini | - |
 
 ## License
 

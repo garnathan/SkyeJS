@@ -18,7 +18,6 @@ let isInitialized = false;
 
 // Platform display names
 const PLATFORM_NAMES = {
-  claude: 'Claude AI',
   oci: 'Oracle Cloud Infrastructure',
   google: 'Google Services',
 };

@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import claudeRoutes from './claude.js';
 import weatherRoutes from './weather.js';
 import todosRoutes from './todos.js';
 import logsRoutes from './logs.js';
@@ -15,7 +14,6 @@ router.get('/health', (req, res) => {
 });
 
 // Mount routes
-router.use('/claude', claudeRoutes);
 router.use('/weather', weatherRoutes);
 router.use('/todos', todosRoutes);
 router.use('/logs', logsRoutes);

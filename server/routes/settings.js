@@ -66,12 +66,6 @@ const SETTINGS_SCHEMA = {
   apiKeys: {
     label: 'API Keys',
     fields: {
-      ANTHROPIC_API_KEY: {
-        label: 'Anthropic API Key',
-        description: 'API key for Claude AI chat',
-        placeholder: 'sk-ant-...',
-        type: 'password'
-      },
       OPENWEATHERMAP_API_KEY: {
         label: 'OpenWeatherMap API Key',
         description: 'API key for OpenWeatherMap One Call API 3.0',

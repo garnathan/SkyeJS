@@ -13,7 +13,6 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { requestLogger } from './middleware/requestLogger.js';
 
 // Routes
-import claudeRoutes from './routes/claude.js';
 import weatherRoutes from './routes/weather.js';
 import todosRoutes from './routes/todos.js';
 import logsRoutes from './routes/logs.js';
@@ -79,7 +78,6 @@ app.post('/api/restart', async (req, res) => {
 });
 
 // API Routes
-app.use('/api/claude', claudeRoutes);
 app.use('/api/weather', weatherRoutes);
 app.use('/api/todos', todosRoutes);
 app.use('/api/logs', logsRoutes);

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
   ChartBarIcon,
-  ChatBubbleLeftRightIcon,
   CloudIcon,
   CheckCircleIcon,
   MusicalNoteIcon,
@@ -17,13 +16,6 @@ const links = [
     href: '/dashboard',
     icon: ChartBarIcon,
     color: 'from-blue-500 to-blue-600',
-  },
-  {
-    name: 'Claude',
-    description: 'Anthropic AI assistant',
-    href: '/claude',
-    icon: ChatBubbleLeftRightIcon,
-    color: 'from-orange-500 to-orange-600',
   },
   {
     name: 'Weather',

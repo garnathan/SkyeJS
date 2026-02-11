@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import {
   HomeIcon,
   ChartBarIcon,
-  ChatBubbleLeftRightIcon,
   CloudIcon,
   Squares2X2Icon,
 } from '@heroicons/react/24/outline';
@@ -10,7 +9,6 @@ import {
 const mobileNav = [
   { name: 'Home', href: '/', icon: HomeIcon },
   { name: 'Dashboard', href: '/dashboard', icon: ChartBarIcon },
-  { name: 'Claude', href: '/claude', icon: ChatBubbleLeftRightIcon },
   { name: 'Weather', href: '/weather', icon: CloudIcon },
   { name: 'More', href: '/todo', icon: Squares2X2Icon },
 ];

@@ -7,12 +7,6 @@ const router = Router();
 
 // Platform status endpoints - platforms with standard Statuspage API
 const STATUSPAGE_PLATFORMS = {
-  claude: {
-    name: 'Claude AI',
-    statusUrl: 'https://status.claude.com/api/v2/status.json',
-    componentsUrl: 'https://status.claude.com/api/v2/components.json',
-    pageUrl: 'https://status.claude.com'
-  },
   oci: {
     name: 'Oracle Cloud Infrastructure',
     statusUrl: 'https://ocistatus.oraclecloud.com/api/v2/status.json',

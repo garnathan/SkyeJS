@@ -59,23 +59,6 @@ export const dashboardApi = {
   getRecommendationHistory: () => api.get('/recommendation-history'),
 };
 
-// Claude API
-export const claudeApi = {
-  getModels: () => api.get('/claude/models'),
-  getContexts: () => api.get('/claude/contexts'),
-  chat: (messages, model = 'claude-sonnet-4-20250514', contexts = []) => {
-    // Server expects { message, history, model, contexts } format
-    const history = messages.slice(0, -1);
-    const message = messages[messages.length - 1]?.content || '';
-    // Ensure model is a string (not an object)
-    const modelId = typeof model === 'object'
-      ? (model?.name || model?.id || 'claude-sonnet-4-20250514')
-      : model;
-    // Extended timeout for AI chat (2 minutes)
-    return api.post('/claude/chat', { message, history, model: modelId, contexts }, { timeout: 120000 });
-  },
-};
-
 // Weather API
 export const weatherApi = {
   getWeather: (params = {}) => api.get('/weather', { params }),

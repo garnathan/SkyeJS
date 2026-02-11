@@ -24,7 +24,6 @@ const config = {
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
 
   // API Keys
-  anthropicApiKey: process.env.ANTHROPIC_API_KEY || fileConfig.anthropic_api_key,
   youtubeApiKey: process.env.YOUTUBE_API_KEY || fileConfig.youtube_api_key,
   windyApiKey: process.env.WINDY_API_KEY || fileConfig.windy_api_key,
   openWeatherMapApiKey: process.env.OPENWEATHERMAP_API_KEY || fileConfig.openweathermap_api_key,

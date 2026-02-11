@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
-import Claude from './pages/Claude';
 import Weather from './pages/Weather';
 import Todo from './pages/Todo';
 import Music from './pages/Music';
@@ -31,7 +30,7 @@ function App() {
   useTodoReminders();
 
   // Start global platform health monitoring for dependency outage alerts
-  // Monitors Claude, OCI, and other platform statuses
+  // Monitors OCI and other platform statuses
   usePlatformHealthMonitor();
 
   useEffect(() => {
@@ -48,7 +47,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home-automation" element={<HomeAutomation />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/claude" element={<Claude />} />
         <Route path="/weather" element={<Weather />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/music" element={<Music />} />
